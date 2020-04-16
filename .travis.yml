@@ -3,5 +3,15 @@ services:
   -docker
 
 scripts:
-  - docker build-t fercarrillo/node .
+  - docker build -t fercarrillo/node .
   - docker images fercarrillo/node
+
+before_deploy:
+  - docker login -u fercarrillo -p 7ba7b94a-e5bd-4c07-8cbf-45c1baf46578
+
+deploy:
+  provider: script
+  script: docker push fercarrillo/node
+  on:
+    branch: master
+    
